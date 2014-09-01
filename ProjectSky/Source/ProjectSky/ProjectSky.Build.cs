@@ -6,6 +6,6 @@ public class ProjectSky : ModuleRules
 {
 	public ProjectSky(TargetInfo Target)
 	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","Slate", "SlateCore" });
 	}
 }

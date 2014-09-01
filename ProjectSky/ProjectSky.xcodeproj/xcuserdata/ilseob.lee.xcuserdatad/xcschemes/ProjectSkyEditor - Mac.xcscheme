@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4D012BA00E942CE3E13ED28"
+               BlueprintIdentifier = "29FC17BCBC00AB4007D219E1"
                BuildableName = "ProjectSkyEditor - Mac"
                BlueprintName = "ProjectSkyEditor - Mac"
                ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD2B4BAAD044778F03B18500"
+               BlueprintIdentifier = "5A273BE58904752506AD7474"
                BuildableName = "UE4CmdLineRun.xctest"
                BlueprintName = "UE4CmdLineRun"
                ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A4D012BA00E942CE3E13ED28"
+            BlueprintIdentifier = "29FC17BCBC00AB4007D219E1"
             BuildableName = "ProjectSkyEditor - Mac"
             BlueprintName = "ProjectSkyEditor - Mac"
             ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -63,7 +63,7 @@
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;/Users/ilseob.lee/Documents/Unreal Projects/ProjectSky/ProjectSky.uproject&quot;"
+            argument = "&quot;/Users/ilseob.lee/Documents/GIt/ProjectSky.Unreal/ProjectSky/ProjectSky.uproject&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -83,7 +83,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A4D012BA00E942CE3E13ED28"
+            BlueprintIdentifier = "29FC17BCBC00AB4007D219E1"
             BuildableName = "UE4Editor.app"
             BlueprintName = "UE4Editor"
             ReferencedContainer = "container:UE4.xcodeproj">

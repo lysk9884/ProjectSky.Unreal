@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B9DA2287E06D554F82C141CF"
+               BlueprintIdentifier = "6C5905C5B1D5F1E6EBB9395F"
                BuildableName = "ProjectSky - Mac"
                BlueprintName = "ProjectSky - Mac"
                ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD2B4BAAD044778F03B18500"
+               BlueprintIdentifier = "5A273BE58904752506AD7474"
                BuildableName = "UE4CmdLineRun.xctest"
                BlueprintName = "UE4CmdLineRun"
                ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B9DA2287E06D554F82C141CF"
+            BlueprintIdentifier = "6C5905C5B1D5F1E6EBB9395F"
             BuildableName = "ProjectSky - Mac"
             BlueprintName = "ProjectSky - Mac"
             ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -59,11 +59,11 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/ilseob.lee/Documents/Unreal Projects/ProjectSky/Binaries/Mac/ProjectSky-Mac-Debug.app">
+         FilePath = "/Users/ilseob.lee/Documents/GIt/ProjectSky.Unreal/ProjectSky/Binaries/Mac/ProjectSky-Mac-Debug.app">
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;/Users/ilseob.lee/Documents/Unreal Projects/ProjectSky/ProjectSky.uproject&quot;"
+            argument = "&quot;/Users/ilseob.lee/Documents/GIt/ProjectSky.Unreal/ProjectSky/ProjectSky.uproject&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -83,7 +83,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B9DA2287E06D554F82C141CF"
+            BlueprintIdentifier = "6C5905C5B1D5F1E6EBB9395F"
             BuildableName = "ProjectSky.app"
             BlueprintName = "ProjectSky"
             ReferencedContainer = "container:UE4.xcodeproj">
