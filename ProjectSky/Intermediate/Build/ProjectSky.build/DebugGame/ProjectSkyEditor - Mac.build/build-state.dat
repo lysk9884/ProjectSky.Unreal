@@ -1,42 +1,0 @@
-TProjectSkyEditor - Mac
-v6
-r1
-cCheck dependencies
-cExternalBuildToolExecution ProjectSkyEditor\ -\ Mac
-
-N/Users/Shared/UnrealEngine/4.4/Engine/Build/BatchFiles/Mac/RocketBuild.sh
-c0000000053F173BD0000000000000659
-t1408332733
-s1625
-
-CCheck dependencies
-r0
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependenciese57d5cd6c9b6b941^7ff55cd6c9b6b941^---0#1#1#--18"Check dependencies36"9E6EEAAC-8B4F-4DAE-92E9-E6914A99C005-
-
-CExternalBuildToolExecution ProjectSkyEditor\ -\ Mac
-s431409622.362358
-e431409651.008192
-r1
-xExternalBuildToolExecution
-xProjectSkyEditor - Mac
-oSetting up Mono
-oBuilding ProjectSkyEditor...
-oCompiling with Mac SDK 10.9
-oParsing headers for ProjectSkyEditor
-oReflection code generation finished for ProjectSkyEditor and took 7.464
-oPerforming 7 actions (max 4 parallel jobs)
-o[1/7] Compile ProjectSky.h
-o[2/7] Compile ProjectSkyGameMode.cpp
-o[3/7] Compile ProjectSkyCharacter.cpp
-o[4/7] Compile ProjectSkyPlayerController.cpp
-o[5/7] Compile ProjectSky.cpp
-o[6/7] Compile ProjectSky.generated.cpp
-o[7/7] Link UE4Editor-ProjectSky-Mac-DebugGame.dylib
-o-------- End Detailed Actions Stats -----------------------------------------------------------
-oCumulative action seconds (4 processors): 0.00 building projects, 23.84 compiling, 0.00 creating app bundles, 0.00 generating debug info, 0.74 linking, 0.00 other
-oUBT execution time: 28.20 seconds
-oCompiling with Mac SDK 10.9
-oDeploying now!
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection23"Run external build tool51"ExternalBuildToolExecution ProjectSkyEditor\ -\ Macd0d35cd6c9b6b941^a81902f3c9b6b941^-828"Setting up MonoBuilding ProjectSkyEditor...Compiling with Mac SDK 10.9Parsing headers for ProjectSkyEditorReflection code generation finished for ProjectSkyEditor and took 7.464Performing 7 actions (max 4 parallel jobs)[1/7] Compile ProjectSky.h[2/7] Compile ProjectSkyGameMode.cpp[3/7] Compile ProjectSkyCharacter.cpp[4/7] Compile ProjectSkyPlayerController.cpp[5/7] Compile ProjectSky.cpp[6/7] Compile ProjectSky.generated.cpp[7/7] Link UE4Editor-ProjectSky-Mac-DebugGame.dylib-------- End Detailed Actions Stats -----------------------------------------------------------Cumulative action seconds (4 processors): 0.00 building projects, 23.84 compiling, 0.00 creating app bundles, 0.00 generating debug info, 0.74 linking, 0.00 otherUBT execution time: 28.20 secondsCompiling with Mac SDK 10.9Deploying now!18(21%IDEActivityLogMessage2@16"Setting up Mono-431409622#0#16#-0#-----2@29"Building ProjectSkyEditor...-431409622#16#29#-0#-----2@28"Compiling with Mac SDK 10.9-431409623#45#28#-0#-----2@37"Parsing headers for ProjectSkyEditor-431409627#73#37#-0#-----2@72"Reflection code generation finished for ProjectSkyEditor and took 7.464-431409635#110#72#-0#-----2@43"Performing 7 actions (max 4 parallel jobs)-431409636#182#43#-0#-----2@27"[1/7] Compile ProjectSky.h-431409636#225#27#-0#-----2@37"[2/7] Compile ProjectSkyGameMode.cpp-431409644#252#37#-0#-----2@38"[3/7] Compile ProjectSkyCharacter.cpp-431409644#289#38#-0#-----2@45"[4/7] Compile ProjectSkyPlayerController.cpp-431409644#327#45#-0#-----2@29"[5/7] Compile ProjectSky.cpp-431409644#372#29#-0#-----2@39"[6/7] Compile ProjectSky.generated.cpp-431409647#401#39#-0#-----2@52"[7/7] Link UE4Editor-ProjectSky-Mac-DebugGame.dylib-431409650#440#52#-0#-----2@96"-------- End Detailed Actions Stats ------------------------------------------------------------431409650#492#96#-0#-----2@163"Cumulative action seconds (4 processors): 0.00 building projects, 23.84 compiling, 0.00 creating app bundles, 0.00 generating debug info, 0.74 linking, 0.00 other-431409650#588#163#-0#-----2@34"UBT execution time: 28.20 seconds-431409650#751#34#-0#-----2@28"Compiling with Mac SDK 10.9-431409650#785#28#-0#-----2@15"Deploying now!-431409650#813#15#-0#-----0#0#1#--302"ExternalBuildToolExecution ProjectSkyEditor\ -\ Mac    cd /Users/Shared/UnrealEngine/4.4    export ACTION=    /Users/Shared/UnrealEngine/4.4/Engine/Build/BatchFiles/Mac/RocketBuild.sh ProjectSkyEditor macosx DebugGame /Users/ilseob.lee/Documents/GIt/ProjectSky.Unreal/ProjectSky/ProjectSky.uproject36"AA7E6181-4E8A-4042-A58B-4C9656CCB8EC-
-b6ABAD07C-7BAB-4FB2-BACD-6CDDCC217639
-
