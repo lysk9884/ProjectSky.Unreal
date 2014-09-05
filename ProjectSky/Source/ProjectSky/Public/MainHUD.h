@@ -17,14 +17,14 @@ public :
     
     virtual void PostInitializeComponents() override;
     
-    UFUNCTION(BlueprintImplementableEvent , Caetegory = "Menus|Main Menu")
+    UFUNCTION(BlueprintImplementableEvent , Category = "Menus|Main Menu")
     void PlayGameClicked();
     
-    UFUNCTION(BlueprintImplementableEvent , Caetegory = "Menus|Main Menu")
+    UFUNCTION(BlueprintImplementableEvent , Category = "Menus|Main Menu")
     void QuitGameClicked();
 
 private:
     
-    TsharedPtr<class SMainMenu> MainMenuUI;
+    TSharedPtr<class SMainMenu> p_mainMenuUI;
 	
 };
