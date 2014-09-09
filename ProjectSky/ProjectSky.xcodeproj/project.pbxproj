@@ -46,6 +46,7 @@
 		C2B4B2C61992407D66A50C05 /* MainHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MainHUD.h; path = Source/ProjectSky/Public/MainHUD.h; sourceTree = SOURCE_ROOT; };
 		CB393D8791A3E41315F82216 /* ProjectSkyGameMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ProjectSkyGameMode.h; path = Source/ProjectSky/Public/ProjectSkyGameMode.h; sourceTree = SOURCE_ROOT; };
 		D2A29D200257CBB89990085E /* ProjectSky.Build.cs */ = {isa = PBXFileReference; lastKnownFileType = file.text; name = ProjectSky.Build.cs; path = Source/ProjectSky/ProjectSky.Build.cs; sourceTree = SOURCE_ROOT; };
+		DA0FE90819BE95820071C1FF /* Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Content; sourceTree = "<group>"; };
 		DAEB00EE19B8787600B70999 /* MyGameResources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MyGameResources.h; path = Source/ProjectSky/Public/MyGameResources.h; sourceTree = SOURCE_ROOT; };
 		DAEB00EF19B9605500B70999 /* MyGameResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MyGameResources.cpp; path = Source/ProjectSky/Private/MyGameResources.cpp; sourceTree = SOURCE_ROOT; };
 		E597618D700086845231AED2 /* SMainMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SMainMenu.h; path = Source/ProjectSky/Public/SMainMenu.h; sourceTree = SOURCE_ROOT; };
@@ -92,6 +93,7 @@
 		62147C9A139B0CC310311762 = {
 			isa = PBXGroup;
 			children = (
+				DA0FE90819BE95820071C1FF /* Content */,
 				8ECEEA9EC2004E8ED775D5ED /* Source */,
 				4D492ACE78BDC7E1AE5D618A /* Products */,
 				EE3EEA590C6ADA2C929100CA /* Frameworks */,
