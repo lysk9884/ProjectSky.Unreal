@@ -34,6 +34,7 @@ private:
     // pointer to Resource in Game Module
     
     TSharedPtr<FSlateGameResources> MyUIResources;
+	
     
     
 };

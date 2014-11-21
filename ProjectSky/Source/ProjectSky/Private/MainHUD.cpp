@@ -12,9 +12,12 @@ AMainHUD::AMainHUD(const class FPostConstructInitializeProperties& PCIP)
 {
 }
 
+
+
 void AMainHUD::PostInitializeComponents()
 {
     Super::PostInitializeComponents();
+	
     
     if(GEngine && GEngine->GameViewport)
     {
@@ -31,5 +34,11 @@ void AMainHUD::PostInitializeComponents()
   
     
 }
+
+
+
+
+
+
 
 

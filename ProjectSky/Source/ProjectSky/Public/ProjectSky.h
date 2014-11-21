@@ -5,6 +5,7 @@
 
 #include "EngineMinimal.h"
 #include "Engine.h"
+#include <typeinfo.h>
 #include "MyGameResources.h"
 
 

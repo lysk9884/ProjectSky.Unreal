@@ -23,6 +23,10 @@ public :
     UFUNCTION(BlueprintImplementableEvent , Category = "Menus|Main Menu")
     void QuitGameClicked();
 
+	
+
+
+
 private:
     
     TSharedPtr<class SMainMenu> p_mainMenuUI;
