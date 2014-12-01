@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Utility.h"
+#include "Squad/Unit.h"
 #include "GameFramework/Pawn.h"
 #include "Squad.generated.h"
 
@@ -13,7 +13,7 @@
 UCLASS()
 class PROJECTSKY_API ASquad : public APawn
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 
 // fields
 
@@ -25,10 +25,10 @@ private:
 protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
-	TArray<ACharacter*> m_unitPtrs;
+	TArray<AUnit*> m_unitPtrs;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
-	ACharacter* m_leaderUnit;
+	AUnit* m_leaderUnit;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
 	UClass* m_potentialBP;
@@ -46,7 +46,7 @@ public:
 		Diamond,
 	};
 
-	SquadFormation m_squadFormation = SquadFormation::Diamond;
+	SquadFormation m_squadFormation = SquadFormation::OneRow;
 
 // method
 
@@ -55,11 +55,11 @@ public:
 	UFUNCTION(BlueprintCallable , Category="Squad Creation")
 	virtual void createSquad(int32 numberOfUnit = 1);
 	
-	void setLeaderUnit(ACharacter* leaderUnit);
+	void setLeaderUnit(AUnit* leaderUnit);
 
 private:
 
-	ACharacter* spawnUnit(UClass* targetUnitBP, const FVector& initLoc = FVector(0, 0, 0));
+	AUnit* spawnUnit(UClass* targetUnitBP, int32 formationIndex = 0);
 	
 
 };

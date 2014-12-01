@@ -2,8 +2,15 @@
 
 
 #include "ProjectSky.h"
+#include "Utility.h"
 #include "Squad.h"
 
+
+ASquad::ASquad(const class FObjectInitializer& PCIP)
+	: Super(PCIP)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Squad is generated"));
+}
 
 void ASquad::initSquad()
 {
@@ -38,92 +45,91 @@ void ASquad::createSquad(int32 numberOfUnit)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("player start location:{0}"), *playerStart->GetActorLocation().ToString());
 		squadLoc = playerStart->GetActorLocation();
+		this->SetActorLocation(squadLoc);
 	}
+
 	for (int i = 0; i < numberOfUnit; i++)
 	{
 		
-		
 		//spawn bp unit here
-		ACharacter* unit = spawnUnit(m_potentialBP, squadLoc);
+		AUnit* unit = ASquad::spawnUnit(m_potentialBP,i);
+		
 		m_unitPtrs.Add(unit);
+
+		if (unit == NULL)
+			continue;
+
+		unit->setSquadActor(this);
 
 		if (i == 0) // first unit as leader Unit
 		{
-			ACharacter* leaderUnit = Cast<ACharacter>(m_unitPtrs[0]);
+			AUnit* leaderUnit = m_unitPtrs[0];
 			setLeaderUnit(leaderUnit );
 		}
 
-		FVector unitWorldScale = unit->GetActorScale3D();
-		FVector unitLocalScale = unit->GetActorRelativeScale3D();
-		float   unitCapsuleRadious = unit->GetCapsuleComponent()->GetScaledCapsuleRadius();
-		float	distToUnit = 150.0f + unitCapsuleRadious;
-
-		FVector unitLoc = FVector(squadLoc.X, squadLoc.Y, squadLoc.Z);
-
-		switch (m_squadFormation)
-		{
-		case ASquad::SquadFormation::ThreeRow:
-
-			break;
-		case ASquad::SquadFormation::TwoRow:
-			
-			break;
-		case ASquad::SquadFormation::OneRow:
-			
-			unitLoc = FVector(squadLoc.X, squadLoc.Y + (distToUnit * i), squadLoc.Z);
-			
-			break;
-		case ASquad::SquadFormation::Diamond:
-			
-			if (i < 1)
-				break;
-
-			if (i <= 2)
-			{
-				unitLoc.X += distToUnit;
-				unitLoc.Y += (distToUnit / 2) * ( i > 1 ? 1 : -1);
-			}
-			else if (i <= 4)
-			{
-				unitLoc.Y += distToUnit *(i == 4 ? 1 : -1);
-			}
-			else
-			{
-				unitLoc.X -= distToUnit;
-			}
-
-			break;
-		}
-
-		
-		unit->SetActorLocation(unitLoc);
 	}
 
 	UE_LOG(LogTemp, Log, TEXT("number of unit in this squad is %d"),m_unitPtrs.Num());
 }
 
 // spawn bp unit
- ACharacter* ASquad::spawnUnit(UClass* targetUnitBP, const FVector& initLoc /* = FVector(0, 0, 0) */)
+AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
 {
 	// spawn Bp unit here
+	AUnit* unit = NULL;
+	FVector squadLoc = this->GetActorLocation();
 	
+	UE_LOG(LogTemp, Log, TEXT("unit is generated"));
 
-	AActor* unit = NULL;
-		
+	unit = Utility::SpawnBP<AUnit>(this->GetWorld(), targetUnitBP, this->GetActorLocation() , FRotator(0, 0, 0), false);
 
-	unit = Utility::SpawnBP<AActor>(this->GetWorld(), targetUnitBP, initLoc, FRotator(0, 0, 0), false );
+	float   unitCapsuleRadious = unit->GetCapsuleComponent()->GetScaledCapsuleRadius();
+	float	distToUnit = 150.0f + unitCapsuleRadious;
 
-	ACharacter* unitChar = Cast<ACharacter>(unit);
+	FVector unitLoc = FVector(squadLoc.X, squadLoc.Y, squadLoc.Z);
 
-	if (unitChar != NULL)
-		return unitChar;
-	else
-		return NULL;
-	
+	switch (m_squadFormation)
+	{
+	case ASquad::SquadFormation::ThreeRow:
+
+		break;
+	case ASquad::SquadFormation::TwoRow:
+
+		break;
+	case ASquad::SquadFormation::OneRow:
+
+		unitLoc = FVector(squadLoc.X, squadLoc.Y + (distToUnit * formationIndex), squadLoc.Z);
+
+		break;
+	case ASquad::SquadFormation::Diamond:
+
+		if (formationIndex < 1)
+			break;
+
+		if (formationIndex <= 2)
+		{
+			unitLoc.X += distToUnit;
+			unitLoc.Y += (distToUnit / 2) * (formationIndex > 1 ? 1 : -1);
+		}
+		else if (formationIndex <= 4)
+		{
+			unitLoc.Y += distToUnit *(formationIndex == 4 ? 1 : -1);
+		}
+		else
+		{
+			unitLoc.X -= distToUnit;
+		}
+
+		break;
+	}
+
+	unit->SetActorLocation(unitLoc);
+
+	return unit;
 
 }
 
-void ASquad::setLeaderUnit(ACharacter* leaderUnit)
+void ASquad::setLeaderUnit(AUnit* leaderUnit)
 {
 	// set leader unit;
 	m_leaderUnit = leaderUnit;

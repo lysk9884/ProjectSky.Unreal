@@ -11,23 +11,28 @@ public:
 	Utility();
 	~Utility();
 
-	template <typename type> 
-	static FORCEINLINE type* findSelectedTypeObject(UWorld* world);
-
-	template <typename type>
-	static FORCEINLINE type* SpawnBP(
-		UWorld* TheWorld,
-		UClass* TheBP,
-		const FVector& Loc,
-		const FRotator& Rot,
-		const bool bNoCollisionFail = true,
-		AActor* Owner = NULL,
-		APawn* Instigator = NULL
-		)
+	template <typename type> static FORCEINLINE type* findSelectedTypeObject(UWorld* world)
 	{
-		if (!TheWorld) return NULL;
-		if (!TheBP) return NULL;
-		//~~
+		for (TActorIterator<type> actorItr(world); actorItr; ++actorItr)
+		{
+
+			type* Object = Cast<type>(*actorItr);
+
+			if (Object != NULL)
+			{
+				return Object;
+
+			}
+
+		}
+	};
+
+	template <typename type> static FORCEINLINE type* SpawnBP(UWorld* TheWorld, UClass* TheBP, const FVector& Loc, const FRotator& Rot, const bool bNoCollisionFail = true , AActor* Owner = NULL, APawn* Instigator = NULL)
+	{
+		if (!TheWorld)
+			return NULL;
+		if (!TheBP)
+			return NULL;
 
 		FActorSpawnParameters SpawnInfo;
 		SpawnInfo.bNoCollisionFail = bNoCollisionFail;
@@ -36,6 +41,7 @@ public:
 		SpawnInfo.bDeferConstruction = false;
 
 		return TheWorld->SpawnActor<type>(TheBP, Loc, Rot, SpawnInfo);
-	}
+	};
+	
 
 };

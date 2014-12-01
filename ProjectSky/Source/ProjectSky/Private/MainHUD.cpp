@@ -7,7 +7,7 @@
 
 
 
-AMainHUD::AMainHUD(const class FPostConstructInitializeProperties& PCIP)
+AMainHUD::AMainHUD(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
 }

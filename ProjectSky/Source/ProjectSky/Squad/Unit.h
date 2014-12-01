@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Squad/Squad.h"
+
 #include "GameFramework/Character.h"
 #include "Unit.generated.h"
 
@@ -17,25 +17,26 @@ class PROJECTSKY_API AUnit : public ACharacter
 		//fields
 protected:
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, AdvancedDisplay, Category = "Unit")
-	ASquad* m_curSquad = NULL;
-
-	
 public:
-
 	//DECLARE_DYNAMIC_DELEGATE(FUnitAction);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUnitAction);
 
+	// members
 	UPROPERTY(BlueprintAssignable, Category = "Unit")
-	FUnitAction UnitMoveFinihed;
-
-	// methods
-	UFUNCTION(BlueprintCallable, Category = "Unit")
-	virtual ASquad* getSquad();
-
+		FUnitAction UnitMoveFinihed;
 protected:
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Unit")
+		AActor* m_curSquadActor;
+
+	//methods
 	UFUNCTION(BlueprintCallable, Category = "Unit")
 		void onUnitMoveFinished();
+public:
+	UFUNCTION(BlueprintCallable, Category = "Unit")
+		AActor* getSquadActor();
 
+	UFUNCTION(BlueprintCallable, Category = "Unit")
+		void setSquadActor(AActor* squadActor);
 	
 };
