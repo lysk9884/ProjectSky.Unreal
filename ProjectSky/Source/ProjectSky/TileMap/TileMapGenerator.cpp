@@ -10,14 +10,14 @@ ATileMapGenerator::ATileMapGenerator(const class FObjectInitializer& PCIP)
 	UE_LOG(LogTemp, Warning, TEXT("Tile Map is Generated"));
 }
 
-void ATileMapGenerator::setColor(FColor color)
+void ATileMapGenerator::setColor(FColor tileMapColor)
 {
-	m_tileMapColor = color;
+	m_tileMapColor = tileMapColor;
 }
 
-void ATileMapGenerator::setSize(FVector2D size)
+void ATileMapGenerator::setSize(FVector2D tileMapSize)
 {
-	m_tileMapSize = size;
+	m_tileMapSize = tileMapSize;
 }
 
 void ATileMapGenerator::generateTileMap()
