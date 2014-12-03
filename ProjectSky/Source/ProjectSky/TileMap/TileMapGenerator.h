@@ -41,7 +41,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
 	FVector2D getSizeSetup(); // get current size setup
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "TileMapGenerator")
+	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
 	virtual void generateTileMap(); // generate tile map
 
 private :

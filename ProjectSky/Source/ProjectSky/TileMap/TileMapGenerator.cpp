@@ -20,7 +20,17 @@ void ATileMapGenerator::setSize(FVector2D tileMapSize)
 	m_tileMapSize = tileMapSize;
 }
 
-void ATileMapGenerator::generateTileMap()
+FColor ATileMapGenerator::getCorlorSetup()
+{
+	return m_tileMapColor;
+}
+
+FVector2D ATileMapGenerator::getSizeSetup()
+{
+	return m_tileMapSize;
+}
+
+void ATileMapGenerator::generateTileMap() 
 {
 	//Generate tile map here
 	for (int i = 0; i < (int)(m_tileMapSize.X); i++)
@@ -36,11 +46,28 @@ void ATileMapGenerator::generateTileMap()
 ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex)
 {
 	ATileBase* tileBase = nullptr;
+	FVector2D sizeTileBase = FVector2D(400, 400);
 
-	tileBase = Utility::SpawnBP<ATileBase>(this->GetWorld(), tileBP, this->GetActorLocation(), this->GetActorRotation());
+	FColor colorTileBase = FColor(	FMath::RandRange(0, (int)m_tileMapColor.R * 100) / 100, 
+									FMath::RandRange(0, (int)m_tileMapColor.G * 100) / 100,
+									FMath::RandRange(0, (int)m_tileMapColor.B * 100) / 100,
+									m_tileMapColor.A );
+
+	FVector locSpawnTileBase = FVector(this->GetActorLocation().X + (int)spawnLocIndex.X * sizeTileBase.X, this->GetActorLocation().Y + (int)spawnLocIndex.Y * sizeTileBase.Y, this->GetActorLocation().Z);
+
+	tileBase = Utility::SpawnBP<ATileBase>(this->GetWorld(), tileBP, locSpawnTileBase, this->GetActorRotation());
 
 	if (tileBase != NULL)
+	{
+		UStaticMeshComponent* meshComponent = tileBase->FindComponentByClass<UStaticMeshComponent>();
+		UMaterial* mat = meshComponent->GetMaterial(0)->GetMaterial();
+		UMaterialInstanceDynamic* matInst = UMaterialInstanceDynamic::Create(mat, this);
+		matInst->SetVectorParameterValue(FName("Color"), colorTileBase);
+		meshComponent->SetMaterial(0, matInst);
+
 		return tileBase;
+
+	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("tile base spawaning is failed"));
