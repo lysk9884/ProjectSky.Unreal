@@ -14,7 +14,7 @@
            buildForAnalyzing = "YES">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "E21DA3825FF65243B4288416"
+              BlueprintIdentifier = "5A273BE58904752506AD7474"
               BuildableName = "libUE4XcodeHelper.a"
               BlueprintName = "UE4XcodeHelper"
               ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -32,7 +32,7 @@
            skipped = "NO">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "5A273BE58904752506AD7474"
+              BlueprintIdentifier = "5C2DC354EDE9DF816C3EB183"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -42,7 +42,7 @@
      <MacroExpansion>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "E21DA3825FF65243B4288416"
+           BlueprintIdentifier = "5A273BE58904752506AD7474"
            BuildableName = "libUE4XcodeHelper.a"
            BlueprintName = "UE4XcodeHelper"
            ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -59,7 +59,7 @@
      debugDocumentVersioning = "YES"
      allowLocationSimulation = "YES">
      <PathRunnable
-        FilePath = "/Users/Shared/UnrealEngine/4.4/Engine/Binaries/Mac/UE4XcodeHelper-Mac-Debug">
+        FilePath = "/Users/Shared/UnrealEngine/4.6/Engine/Binaries/Mac/UE4XcodeHelper-Mac-Debug">
      </PathRunnable>
      <AdditionalOptions>
      </AdditionalOptions>
@@ -71,12 +71,12 @@
      buildConfiguration = "Development"
      debugDocumentVersioning = "YES">
      <PathRunnable
-        FilePath = "/Users/Shared/UnrealEngine/4.4/Engine/Binaries/Mac/UE4XcodeHelper">
+        FilePath = "/Users/Shared/UnrealEngine/4.6/Engine/Binaries/Mac/UE4XcodeHelper">
      </PathRunnable>
      <BuildableProductRunnable>
          <BuildableReference
              BuildableIdentifier = "primary"
-	          BlueprintIdentifier = "E21DA3825FF65243B4288416"
+	          BlueprintIdentifier = "5A273BE58904752506AD7474"
              BuildableName = "UE4XcodeHelper"
              BlueprintName = "UE4XcodeHelper"
              ReferencedContainer = "container:UE4.xcodeproj">

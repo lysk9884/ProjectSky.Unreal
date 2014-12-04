@@ -4,10 +4,26 @@
 #include "Utility.h"
 #include "TileMapGenerator.h"
 
+// TileMapData
+TileMapData::TileMapData(FColor colorSetup , FVector2D tileMapSize)
+{
+    mColorSetup = colorSetup;
+    int totalNumOfTiles = (int)tileMapSize.X * (int)tileMapSize.Y;
+    
+    mNumColorTile.numRed = (colorSetup.R / 255) * totalNumOfTiles;
+    mNumColorTile.numGreen = (colorSetup.G / 255) * totalNumOfTiles;
+    mNumColorTile.numBlue = (colorSetup.B / 255) * totalNumOfTiles;
+    
+    UE_LOG(LogTemp, Warning, TEXT("number of color tiles {0}{1}{2}"), mNumColorTile.numRed , mNumColorTile.numGreen , mNumColorTile.numBlue);
+    
+}
+// tileMapData- end
+
 ATileMapGenerator::ATileMapGenerator(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Tile Map is Generated"));
+    PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("RootCompo_Dummy"));
 }
 
 void ATileMapGenerator::setColor(FColor tileMapColor)
@@ -32,6 +48,9 @@ FVector2D ATileMapGenerator::getSizeSetup()
 
 void ATileMapGenerator::generateTileMap() 
 {
+    //Generate Tile Map Data
+    mTileMapData = new TileMapData(m_tileMapColor , m_tileMapSize);
+    
 	//Generate tile map here
 	for (int i = 0; i < (int)(m_tileMapSize.X); i++)
 	{
@@ -59,6 +78,7 @@ ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex)
 
 	if (tileBase != NULL)
 	{
+        tileBase->AttachRootComponentToActor(this);
 		UStaticMeshComponent* meshComponent = tileBase->FindComponentByClass<UStaticMeshComponent>();
 		UMaterial* mat = meshComponent->GetMaterial(0)->GetMaterial();
 		UMaterialInstanceDynamic* matInst = UMaterialInstanceDynamic::Create(mat, this);
@@ -75,3 +95,4 @@ ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex)
 		return tileBase;
 	}
 }
+

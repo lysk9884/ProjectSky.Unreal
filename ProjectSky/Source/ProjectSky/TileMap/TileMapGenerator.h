@@ -9,6 +9,33 @@
 /**
  * 
  */
+class PROJECTSKY_API TileMapData
+{
+public:
+    
+    struct NumColorTile
+    {
+        int numRed = 0;
+        int numGreen = 0;
+        int numBlue =0;
+    };
+    
+private:
+    // members
+    FColor mColorSetup = FColor::FColor(0,0,0);
+    NumColorTile mNumColorTile;
+    
+public:
+    
+    
+    // constructor
+    TileMapData(FColor colorSetup , FVector2D tileMapSize); // constructor
+    ~TileMapData(); //Destructor
+    // methods
+    NumColorTile getNumColorTile();
+    
+};
+
 UCLASS()
 class PROJECTSKY_API ATileMapGenerator : public AActor
 {
@@ -26,6 +53,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, AdvancedDisplay, Category = "TileMapGenerator")
 	UClass* m_tileBP; // tile bluePrint
 	
+    TileMapData* mTileMapData = nullptr;
 	
 public:
 	//method
@@ -49,3 +77,5 @@ private :
 	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
 	ATileBase* spawnTile(UClass *tileBP, FVector2D spawnLocIndex); // spawn tile base
 };
+
+

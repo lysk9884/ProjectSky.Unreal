@@ -14,7 +14,7 @@
            buildForAnalyzing = "YES">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "5A273BE58904752506AD7474"
+              BlueprintIdentifier = "5C2DC354EDE9DF816C3EB183"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -32,7 +32,7 @@
            skipped = "NO">
            <BuildableReference
               BuildableIdentifier = "primary"
-              BlueprintIdentifier = "5A273BE58904752506AD7474"
+              BlueprintIdentifier = "5C2DC354EDE9DF816C3EB183"
               BuildableName = "UE4CmdLineRun.xctest"
               BlueprintName = "UE4CmdLineRun"
               ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -42,7 +42,7 @@
      <MacroExpansion>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "5A273BE58904752506AD7474"
+           BlueprintIdentifier = "5C2DC354EDE9DF816C3EB183"
            BuildableName = "UE4CmdLineRun.xctest"
            BlueprintName = "UE4CmdLineRun"
            ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -61,7 +61,7 @@
      <BuildableProductRunnable>
         <BuildableReference
            BuildableIdentifier = "primary"
-           BlueprintIdentifier = "5A273BE58904752506AD7474"
+           BlueprintIdentifier = "5C2DC354EDE9DF816C3EB183"
            BuildableName = "UE4CmdLineRun.xctest"
            BlueprintName = "UE4CmdLineRun"
            ReferencedContainer = "container:ProjectSky.xcodeproj">
@@ -77,12 +77,12 @@
      buildConfiguration = "Development"
      debugDocumentVersioning = "YES">
      <PathRunnable
-        FilePath = "/Users/Shared/UnrealEngine/4.4/Engine/Binaries/IOS/UE4CmdLineRun.app">
+        FilePath = "/Users/Shared/UnrealEngine/4.6/Engine/Binaries/IOS/UE4CmdLineRun.app">
      </PathRunnable>
      <BuildableProductRunnable>
          <BuildableReference
              BuildableIdentifier = "primary"
-	          BlueprintIdentifier = "5A273BE58904752506AD7474"
+	          BlueprintIdentifier = "5C2DC354EDE9DF816C3EB183"
              BuildableName = "UE4CmdLineRun.app"
              BlueprintName = "UE4CmdLineRun"
              ReferencedContainer = "container:UE4.xcodeproj">
