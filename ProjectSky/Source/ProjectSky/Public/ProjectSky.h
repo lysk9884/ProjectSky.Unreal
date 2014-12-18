@@ -8,6 +8,8 @@
 #include "Utility.h"
 #include <typeinfo>
 #include "MyGameResources.h"
+#include "TileMap/TileBase.h"
+#include "TileMap/TileMapGenerator.h"
 
 
 

@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ProjectSky.h"
-#include "Utility.h"
 #include "TileMapGenerator.h"
 
 // TileMapData
@@ -23,7 +22,9 @@ ATileMapGenerator::ATileMapGenerator(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Tile Map is Generated"));
-    PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("RootCompo_Dummy"));
+    USceneComponent* sceneComponent = PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("RootCompo_Dummy"));
+
+	this->RootComponent = sceneComponent;
 }
 
 void ATileMapGenerator::setColor(FColor tileMapColor)
@@ -62,7 +63,7 @@ void ATileMapGenerator::generateTileMap()
 	UE_LOG(LogTemp, Log, TEXT("generate Tile map is finished!"));
 }
 
-ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex)
+ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex )
 {
 	ATileBase* tileBase = nullptr;
 	FVector2D sizeTileBase = FVector2D(400, 400);

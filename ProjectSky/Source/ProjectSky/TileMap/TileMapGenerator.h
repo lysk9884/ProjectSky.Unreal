@@ -2,8 +2,8 @@
 
 #pragma once
 
+#include "ProjectSky.h"
 #include "GameFramework/Actor.h"
-#include "TileBase.h"
 #include "TileMapGenerator.generated.h"
 
 /**
@@ -12,7 +12,6 @@
 class PROJECTSKY_API TileMapData
 {
 public:
-    
     struct NumColorTile
     {
         int numRed = 0;
@@ -26,8 +25,6 @@ private:
     NumColorTile mNumColorTile;
     
 public:
-    
-    
     // constructor
     TileMapData(FColor colorSetup , FVector2D tileMapSize); // constructor
     ~TileMapData(); //Destructor
@@ -35,7 +32,6 @@ public:
     NumColorTile getNumColorTile();
     
 };
-
 UCLASS()
 class PROJECTSKY_API ATileMapGenerator : public AActor
 {
@@ -75,7 +71,7 @@ public:
 private :
 
 	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
-	ATileBase* spawnTile(UClass *tileBP, FVector2D spawnLocIndex); // spawn tile base
+	ATileBase* spawnTile(UClass *tileBP, FVector2D spawnLocIndex ); // spawn tile base
 };
 
 
