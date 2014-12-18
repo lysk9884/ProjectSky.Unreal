@@ -6,11 +6,13 @@
 #include "GameFramework/Actor.h"
 #include "TileBase.generated.h"
 
+
 enum class TileColorType
 {
-	Red,
+	Red = 0,
 	Green,
 	Blue,
+    Max,
 };
 
 /**
@@ -26,5 +28,5 @@ public:
 	TileColorType getTileColorType();
 		
 protected:
-	TileColorType mColorType = TileColorType::Blue;
+    TileColorType mColorType = TileColorType::Red;
 };
