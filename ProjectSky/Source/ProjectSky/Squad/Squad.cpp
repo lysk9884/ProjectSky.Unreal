@@ -10,6 +10,10 @@ ASquad::ASquad(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Squad is generated"));
+    
+    USceneComponent* sceneComponent = PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("Root"));
+    
+    this->RootComponent = sceneComponent;
 }
 
 void ASquad::initSquad()
@@ -124,7 +128,8 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
 	}
 
 	unit->SetActorLocation(unitLoc);
-
+//    unit->AttachRootComponentToActor(this);
+    
 	return unit;
 
 }

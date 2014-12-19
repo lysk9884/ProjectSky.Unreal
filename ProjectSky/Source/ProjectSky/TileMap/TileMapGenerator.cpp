@@ -4,24 +4,9 @@
 #include "TileMapGenerator.h"
 
 // TileMapData
-TileMapData::TileMapData(ColorSetup colorSetup , FVector2D tileMapSize)
+TileMapData::TileMapData(FVector2D tileMapSize)
 {
-    mColorSetup = colorSetup;
-    int totalNumOfTiles = (int)tileMapSize.X * (int)tileMapSize.Y;
-    
-    mNumColorTile.numRed = ((int)colorSetup.Red / 100.0f) * totalNumOfTiles;
-    mNumColorTile.numGreen = ((int)colorSetup.Green / 100.0f) * totalNumOfTiles;
-    mNumColorTile.numBlue = ((int)colorSetup.Blue / 100.0f) * totalNumOfTiles;
-
-    UE_LOG(LogTemp, Warning, TEXT("color setup is %d, %d, %d"), mColorSetup.R , mColorSetup.G , mColorSetup.B);
-
-    UE_LOG(LogTemp, Warning, TEXT("number of color tiles %d , %d , %d"), mNumColorTile.numRed , mNumColorTile.numGreen , mNumColorTile.numBlue);
-    
-    mArrColorTypes.Append(getSelectedColorTypeArr(TileColorType::Red , mNumColorTile.numRed));
-    mArrColorTypes.Append(getSelectedColorTypeArr(TileColorType::Green , mNumColorTile.numGreen));
-    mArrColorTypes.Append(getSelectedColorTypeArr(TileColorType::Blue , mNumColorTile.numBlue));
-    
-    UE_LOG(LogTemp, Warning, TEXT("number of mArrColorTypes %d"), mArrColorTypes.Num());
+    mTotalNumTiles = (int32)tileMapSize.X * (int)tileMapSize.Y;
 }
 
 TileColorType TileMapData::getTileColorType()
@@ -38,11 +23,37 @@ TileColorType TileMapData::getTileColorType()
     return selectedTileColorType;
 }
 
-TArray<TileColorType> TileMapData::getSelectedColorTypeArr(TileColorType tileColorType , int size)
+void TileMapData::generateTileMapData()
+{
+    int32 totalColorValue = mColorSetup.Red + mColorSetup.Green + mColorSetup.Blue;
+    
+    mColorSetup.Red = (mColorSetup.Red / (float)totalColorValue) * 100;
+    mColorSetup.Green = (mColorSetup.Green / (float)totalColorValue) * 100;
+    mColorSetup.Blue = (mColorSetup.Blue / (float)totalColorValue) * 100;
+    
+    mNumColorTile.numRed = ((int32)mColorSetup.Red / 100.0f) * mTotalNumTiles;
+    mNumColorTile.numGreen = ((int32)mColorSetup.Green / 100.0f) * mTotalNumTiles;
+    mNumColorTile.numBlue = ((int32)mColorSetup.Blue / 100.0f) * mTotalNumTiles;
+    
+    UE_LOG(LogTemp, Warning, TEXT("color setup is %d, %d, %d"), mColorSetup.Red , mColorSetup.Green , mColorSetup.Blue);
+    
+    UE_LOG(LogTemp, Warning, TEXT("number of color tiles %d , %d , %d"), mNumColorTile.numRed , mNumColorTile.numGreen , mNumColorTile.numBlue);
+    
+    if(mNumColorTile.numRed > 0 )
+        mArrColorTypes.Append(getSelectedColorTypeArr(TileColorType::Red , mNumColorTile.numRed));
+    if(mNumColorTile.numGreen > 0 )
+        mArrColorTypes.Append(getSelectedColorTypeArr(TileColorType::Green , mNumColorTile.numGreen));
+    if(mNumColorTile.numBlue > 0)
+        mArrColorTypes.Append(getSelectedColorTypeArr(TileColorType::Blue , mNumColorTile.numBlue));
+    
+    UE_LOG(LogTemp, Warning, TEXT("number of mArrColorTypes %d"), mArrColorTypes.Num());
+}
+
+TArray<TileColorType> TileMapData::getSelectedColorTypeArr(TileColorType tileColorType , int32 size)
 {
     TArray<TileColorType> arrColorType;
     
-    for(int i = 0 ; i < size ; i ++)
+    for(int32 i = 0 ; i < size ; i ++)
     {
         arrColorType.Add(tileColorType);
     }
@@ -56,16 +67,9 @@ ATileMapGenerator::ATileMapGenerator(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Tile Map is Generated"));
-    USceneComponent* sceneComponent = PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("RootCompo_Dummy"));
+    USceneComponent* sceneComponent = PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("Root"));
 
 	this->RootComponent = sceneComponent;
-}
-
-void ATileMapGenerator::setColor(int red = 0, int green = 0 , int blue = 0 )
-{
-    mTileMapColor.Red = red;
-    mtileMapColor.Green = green;
-    mtileMapColor.Blue = blue;
 }
 
 void ATileMapGenerator::setSize(FVector2D tileMapSize)
@@ -73,20 +77,18 @@ void ATileMapGenerator::setSize(FVector2D tileMapSize)
 	m_tileMapSize = tileMapSize;
 }
 
-FColor ATileMapGenerator::getCorlorSetup()
-{
-	return m_tileMapColor;
-}
-
 FVector2D ATileMapGenerator::getSizeSetup()
 {
 	return m_tileMapSize;
 }
 
-void ATileMapGenerator::generateTileMap() 
+void ATileMapGenerator::generateTileMap(int32 red , int32 green , int32 blue)
 {
-    //Generate Tile Map Data
-    mTileMapData = new TileMapData(mTileMapColor , m_tileMapSize);
+    mTileMapData = new TileMapData(m_tileMapSize);
+    mTileMapData->mColorSetup.Red = red;
+    mTileMapData->mColorSetup.Green = green;
+    mTileMapData->mColorSetup.Blue = blue;
+    mTileMapData->generateTileMapData();
     
 	//Generate tile map here
 	for (int i = 0; i < (int)(m_tileMapSize.X); i++)
@@ -97,7 +99,6 @@ void ATileMapGenerator::generateTileMap()
 			ATileBase* tileBase = spawnTile(m_tileBP, FVector2D(i, j),tileColorType); // width Index , height Index
 		}
 	}
-	UE_LOG(LogTemp, Log, TEXT("generate Tile map is finished!"));
 }
 
 ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex , int32  tileColrType)
@@ -121,6 +122,8 @@ ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex 
         default:
             break;
     }
+    
+    UE_LOG(LogTemp, Warning, TEXT("selected color type %d"),tileColrType);
 
 	FVector locSpawnTileBase = FVector(this->GetActorLocation().X + (int)spawnLocIndex.X * sizeTileBase.X, this->GetActorLocation().Y + (int)spawnLocIndex.Y * sizeTileBase.Y, this->GetActorLocation().Z);
 

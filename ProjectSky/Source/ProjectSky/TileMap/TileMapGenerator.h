@@ -19,32 +19,35 @@ class PROJECTSKY_API TileMapData
 public:
     struct ColorSetup
     {
-        int Red = 0;
-        int Green = 0;
-        int Blue = 0;
+        int32 Red = 0;
+        int32 Green = 0;
+        int32 Blue = 0;
     };
     struct NumColorTile
     {
-        int numRed = 0;
-        int numGreen = 0;
-        int numBlue =0;
+        int32 numRed = 0;
+        int32 numGreen = 0;
+        int32 numBlue =0;
     };
     
 private:
     // members
-    ColorSetup mColorSetup ;
+    int32 mTotalNumTiles = 0;
     NumColorTile mNumColorTile;
     TArray<TileColorType> mArrColorTypes;
     
 public:
+    ColorSetup mColorSetup ;
+    
     // constructor
-    TileMapData(ColorSetup colorSetup , FVector2D tileMapSize); // constructor
+    TileMapData(FVector2D tileMapSize); // constructor
     ~TileMapData(); //Destructor
     // methods
     NumColorTile getNumColorTile();
     TileColorType getTileColorType();
+    void generateTileMapData();
 private:
-    TArray<TileColorType> getSelectedColorTypeArr(TileColorType tileColorType , int size = 1);
+    TArray<TileColorType> getSelectedColorTypeArr(TileColorType tileColorType , int32 size = 1);
 };
 UCLASS()
 class PROJECTSKY_API ATileMapGenerator : public AActor
@@ -55,9 +58,6 @@ class PROJECTSKY_API ATileMapGenerator : public AActor
 protected:
     
     TileMapData* mTileMapData = nullptr;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "TileMapGenerator")
-    TileMapData::ColorSetup  mTileMapColor;// this tile map color value
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "TileMapGenerator")
 	FVector2D m_tileMapSize = FVector2D(10, 10); // this is size of tile map
@@ -68,19 +68,13 @@ protected:
 public:
 	//method
 	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
-    void setColor( int red = 0, int green = 0 , int blue = 0 ); // set size of color setting
-
-	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
 	void setSize(FVector2D tileMapSize); // set size of tile map
-
-	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
-	FColor getCorlorSetup(); // get current color setup
 
 	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
 	FVector2D getSizeSetup(); // get current size setup
 
 	UFUNCTION(BlueprintCallable, Category = "TileMapGenerator")
-	virtual void generateTileMap(); // generate tile map
+	virtual void generateTileMap(int32 red , int32 green , int32 blue); // generate tile map
 
 private :
 
