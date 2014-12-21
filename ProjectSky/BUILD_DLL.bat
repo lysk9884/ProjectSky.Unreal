@@ -1,0 +1,1 @@
+UnrealBuildTool.exe ProjectSkyEditor Win64 Development "%CD%\ProjectSky.uproject" -rocket

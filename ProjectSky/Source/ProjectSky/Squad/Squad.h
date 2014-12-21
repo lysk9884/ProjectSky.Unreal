@@ -11,19 +11,15 @@
  * 
  */
 UCLASS()
-class PROJECTSKY_API ASquad : public APawn
+class PROJECTSKY_API ASquad : public APawn 
 {
 	GENERATED_UCLASS_BODY()
 
 // fields
-
 private:
-
 	int m_minUnitNum = 1;
 	int m_maxUnitNum = 6;
-
 protected:
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
 	TArray<AUnit*> m_unitPtrs;
 	
@@ -37,8 +33,7 @@ protected:
 	UClass* m_playerStart;
 
 public:
-
-	enum class SquadFormation
+    enum class SquadFormation
 	{
 		ThreeRow,
 		TwoRow,
@@ -46,21 +41,26 @@ public:
 		Diamond,
 	};
 
-	SquadFormation m_squadFormation = SquadFormation::OneRow;
-
+protected:
+	SquadFormation mSquadFormation = SquadFormation::Diamond;
+public:
 // method
-
 	void initSquad();
-
-	UFUNCTION(BlueprintCallable , Category="Squad Creation")
+    UFUNCTION(BlueprintCallable , Category= "Squad")
 	virtual void createSquad(int32 numberOfUnit = 1);
 	
+    UFUNCTION(BlueprintCallable, Category = "Squad")
+    void setSquadFormation(int32 squadFormation);
+
+    UFUNCTION(BlueprintCallable, Category = "Squad")
+    int32 getSquadFormation();
+
+    UFUNCTION(BlueprintCallable, Category = "Squad")
 	void setLeaderUnit(AUnit* leaderUnit);
 
+    UFUNCTION(BlueprintCallable , Category ="Squad")
+    FVector getUnitPos(AUnit* unit ,int32 unitPosIndex);
 private:
-
 	AUnit* spawnUnit(UClass* targetUnitBP, int32 formationIndex = 0);
-	
-
 };
 

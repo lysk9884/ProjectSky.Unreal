@@ -18,7 +18,7 @@ TileColorType TileMapData::getTileColorType()
     
     TileColorType selectedTileColorType = mArrColorTypes[selectedIndex];
     
-    mArrColorTypes.RemoveAt(selectedIndex);
+    //mArrColorTypes.RemoveAt(selectedIndex);
     
     return selectedTileColorType;
 }

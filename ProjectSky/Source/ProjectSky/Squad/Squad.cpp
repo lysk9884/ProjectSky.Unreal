@@ -14,6 +14,8 @@ ASquad::ASquad(const class FObjectInitializer& PCIP)
     USceneComponent* sceneComponent = PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("Root"));
     
     this->RootComponent = sceneComponent;
+
+    initSquad();
 }
 
 void ASquad::initSquad()
@@ -81,57 +83,26 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
 {
 	// spawn Bp unit here
 	AUnit* unit = NULL;
-	FVector squadLoc = this->GetActorLocation();
-	
+
 	UE_LOG(LogTemp, Log, TEXT("unit is generated"));
 
 	unit = Utility::SpawnBP<AUnit>(this->GetWorld(), targetUnitBP, this->GetActorLocation() , FRotator(0, 0, 0), false);
 
-	float   unitCapsuleRadious = unit->GetCapsuleComponent()->GetScaledCapsuleRadius();
-	float	distToUnit = 150.0f + unitCapsuleRadious;
-
-	FVector unitLoc = FVector(squadLoc.X, squadLoc.Y, squadLoc.Z);
-
-	switch (m_squadFormation)
-	{
-	case ASquad::SquadFormation::ThreeRow:
-
-		break;
-	case ASquad::SquadFormation::TwoRow:
-
-		break;
-	case ASquad::SquadFormation::OneRow:
-
-		unitLoc = FVector(squadLoc.X, squadLoc.Y + (distToUnit * formationIndex), squadLoc.Z);
-
-		break;
-	case ASquad::SquadFormation::Diamond:
-
-		if (formationIndex < 1)
-			break;
-
-		if (formationIndex <= 2)
-		{
-			unitLoc.X += distToUnit;
-			unitLoc.Y += (distToUnit / 2) * (formationIndex > 1 ? 1 : -1);
-		}
-		else if (formationIndex <= 4)
-		{
-			unitLoc.Y += distToUnit *(formationIndex == 4 ? 1 : -1);
-		}
-		else
-		{
-			unitLoc.X -= distToUnit;
-		}
-
-		break;
-	}
-
+    FVector unitLoc = getUnitPos(unit , formationIndex);
 	unit->SetActorLocation(unitLoc);
-//    unit->AttachRootComponentToActor(this);
     
 	return unit;
 
+}
+
+void ASquad::setSquadFormation(int32 squadFormation)
+{
+    mSquadFormation = (SquadFormation)squadFormation;
+}
+
+int32 ASquad::getSquadFormation()
+{
+    return (int32)mSquadFormation;
 }
 
 void ASquad::setLeaderUnit(AUnit* leaderUnit)
@@ -140,7 +111,63 @@ void ASquad::setLeaderUnit(AUnit* leaderUnit)
 	m_leaderUnit = leaderUnit;
 }
 
+FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex)
+{
+    float   unitCapsuleRadious = unit->GetCapsuleComponent()->GetScaledCapsuleRadius();
+    float	distToUnit = 150.0f + unitCapsuleRadious;
 
+    FVector squadLoc = this->GetActorLocation();
+    FVector unitLoc = squadLoc;
+    int32 numUnitCol = 0;
+
+
+    switch (mSquadFormation)
+    {
+    case ASquad::SquadFormation::ThreeRow:
+
+        break;
+    case ASquad::SquadFormation::TwoRow:
+
+        numUnitCol = m_maxUnitNum / 2;
+
+        unitLoc.Y += distToUnit * unitPosIndex;
+
+        if (unitPosIndex >= numUnitCol)
+        {
+            unitLoc.X += distToUnit;
+        }
+
+        break;
+    case ASquad::SquadFormation::OneRow:
+
+        //unitLoc = FVector(unitLoc.X, unitLoc.Y + (distToUnit * formationIndex), unitLoc.Z);
+        unitLoc.Y += distToUnit * unitPosIndex;
+
+        break;
+    case ASquad::SquadFormation::Diamond:
+
+        if (unitPosIndex < 1)
+            break;
+
+        if (unitPosIndex <= 2)
+        {
+            unitLoc.X += distToUnit;
+            unitLoc.Y += (distToUnit / 2) * (unitPosIndex> 1 ? 1 : -1);
+        }
+        else if (unitPosIndex <= 4)
+        {
+            unitLoc.Y += distToUnit *(unitPosIndex == 4 ? 1 : -1);
+        }
+        else
+        {
+            unitLoc.X -= distToUnit;
+        }
+
+        break;
+    }
+
+    return unitLoc;
+}
 
 
 
