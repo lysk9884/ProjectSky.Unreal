@@ -20,17 +20,17 @@ private:
 	int m_minUnitNum = 1;
 	int m_maxUnitNum = 6;
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Memeber")
 	TArray<AUnit*> m_unitPtrs;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Memeber")
 	AUnit* m_leaderUnit;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Memeber")
 	UClass* m_potentialBP;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad")
-	UClass* m_playerStart;
+    
+    UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , AdvancedDisplay , Category ="Squad Memeber")
+    FVector mTargetLoc;
 
 public:
     enum class SquadFormation
@@ -46,21 +46,28 @@ protected:
 public:
 // method
 	void initSquad();
-    UFUNCTION(BlueprintCallable , Category= "Squad")
-	virtual void createSquad(int32 numberOfUnit = 1);
+    UFUNCTION(BlueprintCallable , Category = "Squad Method")
+    virtual void createSquad(int32 numberOfUnit = 1 , FVector initLoc = FVector::ZeroVector);
 	
-    UFUNCTION(BlueprintCallable, Category = "Squad")
+    UFUNCTION(BlueprintCallable, Category = "Squad Method")
     void setSquadFormation(int32 squadFormation);
 
-    UFUNCTION(BlueprintCallable, Category = "Squad")
-    int32 getSquadFormation();
+    UFUNCTION(BlueprintCallable, Category = "Squad Method")
+    int32 getSquadFormation() const;
 
-    UFUNCTION(BlueprintCallable, Category = "Squad")
+    UFUNCTION(BlueprintCallable, Category = "Squad Method")
 	void setLeaderUnit(AUnit* leaderUnit);
 
-    UFUNCTION(BlueprintCallable , Category ="Squad")
-    FVector getUnitPos(AUnit* unit ,int32 unitPosIndex);
+    UFUNCTION(BlueprintCallable , Category ="Squad Method")
+    FVector getUnitPos(AUnit* unit ,int32 unitPosIndex) const;
+    
+    UFUNCTION(BlueprintCallable , Category ="Squad Method")
+    void setTargetLoc(FVector targetLoc);
+    
+    virtual void Tick(float DeltaSeconds) override;
+    
 private:
 	AUnit* spawnUnit(UClass* targetUnitBP, int32 formationIndex = 0);
+    
 };
 

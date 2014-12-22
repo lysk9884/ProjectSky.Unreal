@@ -23,7 +23,7 @@ void ASquad::initSquad()
 	// initialize squad here
 }
 
-void ASquad::createSquad(int32 numberOfUnit)
+void ASquad::createSquad(int32 numberOfUnit , FVector initLoc)
 {
 	if (numberOfUnit < m_minUnitNum)
 		numberOfUnit = m_minUnitNum;
@@ -31,28 +31,32 @@ void ASquad::createSquad(int32 numberOfUnit)
 	if (numberOfUnit > m_maxUnitNum)
 		numberOfUnit = m_maxUnitNum;
 
-	APlayerStart* playerStart = NULL;
+//	APlayerStart* playerStart = NULL;
 
-	for (TActorIterator<APlayerStart> actorItr(GetWorld()); actorItr; ++actorItr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("actor name in the iterator : %s"),  *actorItr->GetName() );
-		UE_LOG(LogTemp, Warning, TEXT("actor name in the iterator : %s"), *actorItr->GetActorClass()->GetName());
-		playerStart = Cast<APlayerStart>(*actorItr);
-
-		if (playerStart != NULL)
-		{
-			break;
-		}
-	}
+//	for (TActorIterator<APlayerStart> actorItr(GetWorld()); actorItr; ++actorItr)
+//	{
+//		UE_LOG(LogTemp, Warning, TEXT("actor name in the iterator : %s"),  *actorItr->GetName() );
+//		UE_LOG(LogTemp, Warning, TEXT("actor name in the iterator : %s"), *actorItr->GetActorClass()->GetName());
+//		playerStart = Cast<APlayerStart>(*actorItr);
+//
+//		if (playerStart != NULL)
+//		{
+//			break;
+//		}
+//	}
 	
-	FVector squadLoc = FVector(ForceInitToZero);
-
-	if (playerStart != NULL)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("player start location:{0}"), *playerStart->GetActorLocation().ToString());
-		squadLoc = playerStart->GetActorLocation();
-		this->SetActorLocation(squadLoc);
-	}
+//	FVector squadLoc = FVector(ForceInitToZero);
+//
+//	if (playerStart != NULL)
+//	{
+//		UE_LOG(LogTemp, Warning, TEXT("player start location:{0}"), *playerStart->GetActorLocation().ToString());
+//		squadLoc = playerStart->GetActorLocation();
+//		this->SetActorLocation(squadLoc);
+//	}
+    
+    this->SetActorLocation(initLoc);
+    
+    this->setTargetLoc(initLoc);
 
 	for (int i = 0; i < numberOfUnit; i++)
 	{
@@ -100,7 +104,7 @@ void ASquad::setSquadFormation(int32 squadFormation)
     mSquadFormation = (SquadFormation)squadFormation;
 }
 
-int32 ASquad::getSquadFormation()
+int32 ASquad::getSquadFormation() const
 {
     return (int32)mSquadFormation;
 }
@@ -111,13 +115,12 @@ void ASquad::setLeaderUnit(AUnit* leaderUnit)
 	m_leaderUnit = leaderUnit;
 }
 
-FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex)
+FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex) const
 {
     float   unitCapsuleRadious = unit->GetCapsuleComponent()->GetScaledCapsuleRadius();
     float	distToUnit = 150.0f + unitCapsuleRadious;
-
-    FVector squadLoc = this->GetActorLocation();
-    FVector unitLoc = squadLoc;
+    
+    FVector unitLoc = mTargetLoc;
     int32 numUnitCol = 0;
 
 
@@ -168,6 +171,20 @@ FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex)
 
     return unitLoc;
 }
+
+void ASquad::setTargetLoc(FVector targetLoc)
+{
+    mTargetLoc = targetLoc;
+}
+
+
+void ASquad::Tick(float DeltaSeconds)
+{
+    if(m_leaderUnit != NULL)
+        this->SetActorLocation(m_leaderUnit->GetActorLocation());
+}
+
+
 
 
 
