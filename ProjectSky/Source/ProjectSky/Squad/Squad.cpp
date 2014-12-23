@@ -91,12 +91,14 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
 	UE_LOG(LogTemp, Log, TEXT("unit is generated"));
 
 	unit = Utility::SpawnBP<AUnit>(this->GetWorld(), targetUnitBP, this->GetActorLocation() , FRotator(0, 0, 0), false);
-
-    FVector unitLoc = getUnitPos(unit , formationIndex);
-	unit->SetActorLocation(unitLoc);
+    
+    if(unit != NULL)
+    {
+        FVector unitLoc = getUnitPos(unit , formationIndex);
+        unit->SetActorLocation(unitLoc);
+    }
     
 	return unit;
-
 }
 
 void ASquad::setSquadFormation(int32 squadFormation)

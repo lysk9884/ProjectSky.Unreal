@@ -20,3 +20,8 @@ void AUnit::setSquadActor(AActor* squadActor)
 {
 	m_curSquadActor = squadActor;
 }
+
+//void Aunit::moveToTargetPos(FVector targetPos)
+//{
+//    this->ACharacter::GetMovementComponent()->mo
+//}
