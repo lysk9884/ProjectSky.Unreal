@@ -96,6 +96,7 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
     {
         FVector unitLoc = getUnitPos(unit , formationIndex);
         unit->SetActorLocation(unitLoc);
+        unit->SpawnDefaultController();
     }
     
 	return unit;

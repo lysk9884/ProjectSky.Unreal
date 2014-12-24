@@ -39,9 +39,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Unit")
 		void setSquadActor(AActor* squadActor);
     
-//    UFUNCTION(BlueprintCallable , Category = "Unit")
-//    void moveToTargetPos(FVector targetPos);
-//    
+    UFUNCTION(BlueprintCallable , Category = "Unit")
+    void moveToTargetPos(FVector targetPos);
+//
 //    UFUNCTION(BlueprintCallable , Category = "Unit")
 //    void setPosition(FVector targetPos);
 	

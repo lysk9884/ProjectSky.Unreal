@@ -3,6 +3,7 @@
 #include "ProjectSky.h"
 #include "Utility.h"
 #include "Unit.h"
+#include "AIController.h"
 
 
 
@@ -21,7 +22,25 @@ void AUnit::setSquadActor(AActor* squadActor)
 	m_curSquadActor = squadActor;
 }
 
-//void Aunit::moveToTargetPos(FVector targetPos)
-//{
-//    this->ACharacter::GetMovementComponent()->mo
-//}
+void AUnit::moveToTargetPos(FVector targetPos)
+{
+    AController* controller = this->GetController();
+    AAIController* aiCon = Cast<AAIController>(controller);
+    
+    EPathFollowingRequestResult::Type result = aiCon->MoveToLocation(targetPos);
+    
+    if( result == EPathFollowingRequestResult::RequestSuccessful)
+    {
+        UE_LOG(LogTemp , Warning, TEXT("success to move"));
+    }
+    else if(result == EPathFollowingRequestResult::Failed)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("failed to move"));
+    }
+    else if(result == EPathFollowingRequestResult::AlreadyAtGoal)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("already there "));
+    }
+    
+
+}
