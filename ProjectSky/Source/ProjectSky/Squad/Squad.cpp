@@ -14,13 +14,6 @@ ASquad::ASquad(const class FObjectInitializer& PCIP)
     USceneComponent* sceneComponent = PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("Root"));
     
     this->RootComponent = sceneComponent;
-
-    initSquad();
-}
-
-void ASquad::initSquad()
-{
-	// initialize squad here
 }
 
 void ASquad::createSquad(int32 numberOfUnit , FVector initLoc)
@@ -30,29 +23,6 @@ void ASquad::createSquad(int32 numberOfUnit , FVector initLoc)
 
 	if (numberOfUnit > m_maxUnitNum)
 		numberOfUnit = m_maxUnitNum;
-
-//	APlayerStart* playerStart = NULL;
-
-//	for (TActorIterator<APlayerStart> actorItr(GetWorld()); actorItr; ++actorItr)
-//	{
-//		UE_LOG(LogTemp, Warning, TEXT("actor name in the iterator : %s"),  *actorItr->GetName() );
-//		UE_LOG(LogTemp, Warning, TEXT("actor name in the iterator : %s"), *actorItr->GetActorClass()->GetName());
-//		playerStart = Cast<APlayerStart>(*actorItr);
-//
-//		if (playerStart != NULL)
-//		{
-//			break;
-//		}
-//	}
-	
-//	FVector squadLoc = FVector(ForceInitToZero);
-//
-//	if (playerStart != NULL)
-//	{
-//		UE_LOG(LogTemp, Warning, TEXT("player start location:{0}"), *playerStart->GetActorLocation().ToString());
-//		squadLoc = playerStart->GetActorLocation();
-//		this->SetActorLocation(squadLoc);
-//	}
     
     this->SetActorLocation(initLoc);
     
@@ -76,10 +46,11 @@ void ASquad::createSquad(int32 numberOfUnit , FVector initLoc)
 			AUnit* leaderUnit = m_unitPtrs[0];
 			setLeaderUnit(leaderUnit );
 		}
-
 	}
 
 	UE_LOG(LogTemp, Log, TEXT("number of unit in this squad is %d"),m_unitPtrs.Num());
+    
+    mSquadSide = FMath::RandRange(0, 1);
 }
 
 // spawn bp unit
@@ -97,6 +68,8 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
         FVector unitLoc = getUnitPos(unit , formationIndex);
         unit->SetActorLocation(unitLoc);
         unit->SpawnDefaultController();
+        
+        unit->initUnitData(mSquadSide, 100, 100);
     }
     
 	return unit;
@@ -178,6 +151,11 @@ FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex) const
 void ASquad::setTargetLoc(FVector targetLoc)
 {
     mTargetLoc = targetLoc;
+}
+
+int32 ASquad::getSquadSide() const
+{
+    return mSquadSide;
 }
 
 

@@ -2,7 +2,6 @@
 
 #include "ProjectSky.h"
 #include "TileBase.h"
-#include "NavMeshBoundsVolume.generated.h"
 
 
 
@@ -12,11 +11,7 @@ ATileBase::ATileBase(const class FObjectInitializer& PCIP )
 	UE_LOG(LogTemp, Warning, TEXT("Tile base is generated"));
 	USceneComponent* sceneComponent = PCIP.CreateDefaultSubobject<USceneComponent>(this, TEXT("RootCompo_Dummy"));
 
-	this->RootComponent = sceneComponent;
-    
-    na
-    
-    
+	this->RootComponent = sceneComponent;    
 }
 
 void ATileBase::init(TileColorType tileColortype)

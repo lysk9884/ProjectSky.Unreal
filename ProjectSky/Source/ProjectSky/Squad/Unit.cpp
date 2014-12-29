@@ -41,6 +41,14 @@ void AUnit::moveToTargetPos(FVector targetPos)
     {
         UE_LOG(LogTemp, Warning, TEXT("already there "));
     }
-    
-
 }
+
+void AUnit::initUnitData(int32 squadSide, int32 hpMax, int32 stamMax)
+{
+    mUnitData = new UnitData::UnitData(squadSide , hpMax , stamMax);
+}
+
+//UnitData::UnitData* AUnit::getUnitData() const
+//{
+//    return mUnitData;
+//}

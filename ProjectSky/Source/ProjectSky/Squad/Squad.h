@@ -45,7 +45,6 @@ protected:
 	SquadFormation mSquadFormation = SquadFormation::Diamond;
 public:
 // method
-	void initSquad();
     UFUNCTION(BlueprintCallable , Category = "Squad Method")
     virtual void createSquad(int32 numberOfUnit = 1 , FVector initLoc = FVector::ZeroVector);
 	
@@ -58,16 +57,23 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Squad Method")
 	void setLeaderUnit(AUnit* leaderUnit);
 
-    UFUNCTION(BlueprintCallable , Category ="Squad Method")
+    UFUNCTION(BlueprintCallable , Category = "Squad Method")
     FVector getUnitPos(AUnit* unit ,int32 unitPosIndex) const;
     
-    UFUNCTION(BlueprintCallable , Category ="Squad Method")
+    UFUNCTION(BlueprintCallable , Category = "Squad Method")
     void setTargetLoc(FVector targetLoc);
+    
+    UFUNCTION(BlueprintCallable , Category = "Squad Method")
+    int32 getSquadSide() const;
     
     virtual void Tick(float DeltaSeconds) override;
     
+   
+    
 private:
 	AUnit* spawnUnit(UClass* targetUnitBP, int32 formationIndex = 0);
+    
+    int32 mSquadSide = 0;
     
 };
 

@@ -137,6 +137,11 @@ ATileBase* ATileMapGenerator::spawnTile(UClass *tileBP, FVector2D spawnLocIndex 
 		UMaterialInstanceDynamic* matInst = UMaterialInstanceDynamic::Create(mat, this);
 		matInst->SetVectorParameterValue(FName("Color"), colorTileBase);
 		meshComponent->SetMaterial(0, matInst);
+        
+//        ANavMeshBoundsVolume *navMeshBound = this->GetWorld()->SpawnActor<ANavMeshBoundsVolume>();
+//        
+//        navMeshBound->SetActorLocation(tileBase->GetActorLocation());
+//        navMeshBound->SetActorScale3D(tileBase->GetActorScale());
 
 		return tileBase;
 

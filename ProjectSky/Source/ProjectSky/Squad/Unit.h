@@ -2,7 +2,7 @@
 
 #pragma once
 
-
+#include "UnitData.h"
 #include "GameFramework/Character.h"
 #include "Unit.generated.h"
 
@@ -23,26 +23,31 @@ public:
 
 	// members
 	UPROPERTY(BlueprintAssignable, Category = "Unit")
-		FUnitAction UnitMoveFinihed;
+    FUnitAction UnitMoveFinihed;
 protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Unit")
-		AActor* m_curSquadActor;
-
+    AActor* m_curSquadActor;
+    
+    UnitData* mUnitData;
+    
 	//methods
 	UFUNCTION(BlueprintCallable, Category = "Unit")
-		void onUnitMoveFinished();
+    void onUnitMoveFinished();
 public:
 	UFUNCTION(BlueprintCallable, Category = "Unit")
-		AActor* getSquadActor();
+    AActor* getSquadActor();
 
 	UFUNCTION(BlueprintCallable, Category = "Unit")
-		void setSquadActor(AActor* squadActor);
+    void setSquadActor(AActor* squadActor);
     
     UFUNCTION(BlueprintCallable , Category = "Unit")
     void moveToTargetPos(FVector targetPos);
-//
+    
+    UFUNCTION(BlueprintCallable , Category = "Unit")
+    void initUnitData(int32 squadSide , int32 hpMax, int32 stamMax);
+    
 //    UFUNCTION(BlueprintCallable , Category = "Unit")
-//    void setPosition(FVector targetPos);
-	
+//    UnitData::UnitData* getUnitData() const;
+
 };

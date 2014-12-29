@@ -29,4 +29,6 @@ public:
 		
 protected:
     TileColorType mColorType = TileColorType::Red;
+private:
+
 };
