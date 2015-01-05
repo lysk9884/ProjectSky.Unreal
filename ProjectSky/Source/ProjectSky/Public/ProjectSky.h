@@ -11,8 +11,6 @@
 #include "TileMap/TileBase.h"
 #include "TileMap/TileMapGenerator.h"
 
-
-
 class ProjectSky : public FDefaultGameModuleImpl
 {
 public:

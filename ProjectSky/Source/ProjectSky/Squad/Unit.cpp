@@ -1,11 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ProjectSky.h"
-#include "Utility.h"
-#include "Unit.h"
 #include "AIController.h"
-
-
+#include "Unit.h"
+#include "UnitData.h"
 
 void AUnit::onUnitMoveFinished()
 {
@@ -43,12 +41,12 @@ void AUnit::moveToTargetPos(FVector targetPos)
     }
 }
 
-void AUnit::initUnitData(int32 squadSide, int32 hpMax, int32 stamMax)
+void AUnit::initUnitData(int32 squadSide , int32 formationIndex , int32 hpMax, int32 stamMax)
 {
-    mUnitData = new UnitData::UnitData(squadSide , hpMax , stamMax);
+    mUnitData = new UUnitData(squadSide , formationIndex , hpMax , stamMax);
 }
 
-//UnitData::UnitData* AUnit::getUnitData() const
-//{
-//    return mUnitData;
-//}
+UUnitData* AUnit::getUnitData() const
+{
+    return mUnitData;
+}

@@ -69,7 +69,7 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
         unit->SetActorLocation(unitLoc);
         unit->SpawnDefaultController();
         
-        unit->initUnitData(mSquadSide, 100, 100);
+        unit->initUnitData(mSquadSide, formationIndex , 100, 100);
     }
     
 	return unit;

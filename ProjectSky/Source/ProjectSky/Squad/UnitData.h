@@ -2,21 +2,33 @@
 
 #pragma once
 
+#include "UnitData.generated.h"
+
 /**
  * 
  */
-class PROJECTSKY_API UnitData
+UCLASS(CustomConstructor)
+class PROJECTSKY_API UUnitData : public UObject
 {
-public:
-	UnitData(int32 squadSide , int32 hpMax , int32 stamMax);
-	~UnitData();
+    GENERATED_BODY()
     
+public:
+    
+    UUnitData();
+    
+    UUnitData(int32 squadSide ,int32 formationIndex ,  int32 hpMax , int32 stamMax);
+
     UFUNCTION(BlueprintCallable , Category = "UnitData")
     int32 getCurrentHP() const;
+    
     UFUNCTION(BlueprintCallable , Category = "UnitData")
     int32 getCurrentStam() const;
+    
     UFUNCTION(BlueprintCallable , Category = "UnitData")
     int32 getSide() const;
+    
+    UFUNCTION(BlueprintCallable , Category = "UnitData")
+    int32 getFormationIndex() const;
     
     UFUNCTION(BlueprintCallable , Category = "UnitData")
     void addHP(int32 value);
@@ -32,4 +44,6 @@ private:
     
     int32 mStamMax = 100;
     int32 mStam = 100;
+    
+    int32 mFormationIndex = 0;
 };

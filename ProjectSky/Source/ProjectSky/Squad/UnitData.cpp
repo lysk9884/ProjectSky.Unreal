@@ -3,38 +3,45 @@
 #include "ProjectSky.h"
 #include "UnitData.h"
 
-UnitData::UnitData(int32 squadSide , int32 hpMax , int32 stamMax)
+UUnitData::UUnitData()
+{
+}
+
+UUnitData::UUnitData(int32 squadSide ,int32 formationIndex ,  int32 hpMax , int32 stamMax) : UUnitData::UUnitData()
 {
     mSquadSide = squadSide;
+    
+    mFormationIndex = formationIndex;
     
     mHpMax = hpMax;
     mHp = hpMax;
     
     mStamMax = stamMax;
     mStam = stamMax;
-    
+
 }
 
-UnitData::~UnitData()
-{
-}
-
-int32 UnitData::getCurrentHP() const
+int32 UUnitData::getCurrentHP() const
 {
     return mHp;
 }
 
-int32 UnitData::getCurrentStam() const
+int32 UUnitData::getCurrentStam() const
 {
     return mStam;
 }
 
-int32 UnitData::getSide() const
+int32 UUnitData::getSide() const
 {
     return mSquadSide;
 }
 
-void UnitData::addHP(int32 value)
+int32 UUnitData::getFormationIndex() const
+{
+    return mFormationIndex;
+}
+
+void UUnitData::addHP(int32 value)
 {
     mHp += value;
     
@@ -42,7 +49,7 @@ void UnitData::addHP(int32 value)
         mHp = 0;
 }
 
-void UnitData::addStam(int32 value)
+void UUnitData::addStam(int32 value)
 {
     mStam += value;
     

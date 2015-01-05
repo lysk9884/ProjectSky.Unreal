@@ -2,9 +2,11 @@
 
 #pragma once
 
-#include "UnitData.h"
+
 #include "GameFramework/Character.h"
 #include "Unit.generated.h"
+
+class UUnitData;
 
 /**
  * 
@@ -29,7 +31,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Unit")
     AActor* m_curSquadActor;
     
-    UnitData* mUnitData;
+    UUnitData* mUnitData;
     
 	//methods
 	UFUNCTION(BlueprintCallable, Category = "Unit")
@@ -45,9 +47,9 @@ public:
     void moveToTargetPos(FVector targetPos);
     
     UFUNCTION(BlueprintCallable , Category = "Unit")
-    void initUnitData(int32 squadSide , int32 hpMax, int32 stamMax);
+    void initUnitData(int32 squadSide , int32 formationIndex , int32 hpMax, int32 stamMax);
     
-//    UFUNCTION(BlueprintCallable , Category = "Unit")
-//    UnitData::UnitData* getUnitData() const;
+    UFUNCTION(BlueprintCallable , Category = "Unit")
+    UUnitData* getUnitData() const;
 
 };
