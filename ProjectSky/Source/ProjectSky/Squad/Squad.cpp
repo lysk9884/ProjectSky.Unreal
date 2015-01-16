@@ -16,7 +16,7 @@ ASquad::ASquad(const class FObjectInitializer& PCIP)
     this->RootComponent = sceneComponent;
 }
 
-void ASquad::createSquad(int32 numberOfUnit , FVector initLoc)
+void ASquad::createSquad(int32 numberOfUnit , FVector initLoc , ESquadFormation::Type squadFormation)
 {
 	if (numberOfUnit < m_minUnitNum)
 		numberOfUnit = m_minUnitNum;
@@ -27,6 +27,8 @@ void ASquad::createSquad(int32 numberOfUnit , FVector initLoc)
     this->SetActorLocation(initLoc);
     
     this->setTargetLoc(initLoc);
+    
+    this->setSquadFormation(squadFormation);
 
 	for (int i = 0; i < numberOfUnit; i++)
 	{
@@ -75,14 +77,14 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
 	return unit;
 }
 
-void ASquad::setSquadFormation(int32 squadFormation)
+void ASquad::setSquadFormation(ESquadFormation::Type squadFormation)
 {
-    mSquadFormation = (SquadFormation)squadFormation;
+    mSquadFormation = (ESquadFormation::Type)squadFormation;
 }
 
-int32 ASquad::getSquadFormation() const
+ESquadFormation::Type ASquad::getSquadFormation() const
 {
-    return (int32)mSquadFormation;
+    return mSquadFormation;
 }
 
 void ASquad::setLeaderUnit(AUnit* leaderUnit)
@@ -102,28 +104,21 @@ FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex) const
 
     switch (mSquadFormation)
     {
-    case ASquad::SquadFormation::ThreeRow:
+    case ESquadFormation::ThreeRow:
 
         break;
-    case ASquad::SquadFormation::TwoRow:
+    case ESquadFormation::TwoRow:
 
         numUnitCol = m_maxUnitNum / 2;
-
-        unitLoc.Y += distToUnit * unitPosIndex;
-
-        if (unitPosIndex >= numUnitCol)
+            
+        unitLoc.Y += distToUnit * unitPosIndex % numUnitCol;
+        
+        if(unitPosIndex >= numUnitCol)
         {
-            unitLoc.X += distToUnit;
+            unitLoc.X += unitPosIndex / numUnitCol ;
         }
-
         break;
-    case ASquad::SquadFormation::OneRow:
-
-        //unitLoc = FVector(unitLoc.X, unitLoc.Y + (distToUnit * formationIndex), unitLoc.Z);
-        unitLoc.Y += distToUnit * unitPosIndex;
-
-        break;
-    case ASquad::SquadFormation::Diamond:
+    case ESquadFormation::Diamond:
 
         if (unitPosIndex < 1)
             break;

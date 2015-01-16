@@ -7,11 +7,22 @@
 #include "Squad.generated.h"
 
 
+UENUM()
+namespace ESquadFormation
+{
+    enum Type
+    {
+        TwoRow,
+        ThreeRow,
+        Diamond,
+        Wedge
+    };
+}
 /**
- * 
+ *
  */
 UCLASS()
-class PROJECTSKY_API ASquad : public APawn 
+class PROJECTSKY_API ASquad : public APawn
 {
 	GENERATED_UCLASS_BODY()
 
@@ -32,27 +43,18 @@ protected:
     UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , AdvancedDisplay , Category ="Squad Memeber")
     FVector mTargetLoc;
 
-public:
-    enum class SquadFormation
-	{
-		ThreeRow,
-		TwoRow,
-		OneRow,
-		Diamond,
-	};
-
 protected:
-	SquadFormation mSquadFormation = SquadFormation::Diamond;
+    ESquadFormation::Type mSquadFormation = ESquadFormation::Diamond;
 public:
 // method
     UFUNCTION(BlueprintCallable , Category = "Squad Method")
-    virtual void createSquad(int32 numberOfUnit = 1 , FVector initLoc = FVector::ZeroVector);
+    virtual void createSquad(int32 numberOfUnit = 1 , FVector initLoc = FVector::ZeroVector , ESquadFormation::Type squadFormation = ESquadFormation::Diamond);
 	
     UFUNCTION(BlueprintCallable, Category = "Squad Method")
-    void setSquadFormation(int32 squadFormation);
+    void setSquadFormation(ESquadFormation::Type squadFormation);
 
     UFUNCTION(BlueprintCallable, Category = "Squad Method")
-    int32 getSquadFormation() const;
+    ESquadFormation::Type getSquadFormation() const;
 
     UFUNCTION(BlueprintCallable, Category = "Squad Method")
 	void setLeaderUnit(AUnit* leaderUnit);
