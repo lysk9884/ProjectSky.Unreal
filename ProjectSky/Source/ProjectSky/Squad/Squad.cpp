@@ -40,7 +40,7 @@ void ASquad::createSquad(int32 numberOfUnit , FVector initLoc , ESquadFormation:
 
 		if (unit == NULL)
 			continue;
-
+        
 		unit->setSquadActor(this);
 
 		if (i == 0) // first unit as leader Unit
@@ -68,9 +68,9 @@ AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
     if(unit != NULL)
     {
         FVector unitLoc = getUnitPos(unit , formationIndex);
+//        unit->AttachRootComponentToActor(this);
         unit->SetActorLocation(unitLoc);
         unit->SpawnDefaultController();
-        
         unit->initUnitData(mSquadSide, formationIndex , 100, 100);
     }
     
@@ -95,12 +95,18 @@ void ASquad::setLeaderUnit(AUnit* leaderUnit)
 
 FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex) const
 {
-    float   unitCapsuleRadious = unit->GetCapsuleComponent()->GetScaledCapsuleRadius();
-    float	distToUnit = 150.0f + unitCapsuleRadious;
+    float unitCapsuleRadious = unit->GetCapsuleComponent()->GetScaledCapsuleRadius();
+    float distToUnit = 150.0f + unitCapsuleRadious;
+    
+    float yOffset = 0;
+    float xOffset = 0;
     
     FVector unitLoc = mTargetLoc;
+    FVector squadLoc = this->GetActorLocation();
+    
+    float degree = FMath::Atan2((float)(mTargetLoc.Y - squadLoc.Y), (float)(mTargetLoc.X - squadLoc.X)) * 180 / 3.1415f;
+    
     int32 numUnitCol = 0;
-
 
     switch (mSquadFormation)
     {
@@ -111,12 +117,16 @@ FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex) const
 
         numUnitCol = m_maxUnitNum / 2;
             
-        unitLoc.Y += distToUnit * unitPosIndex % numUnitCol;
+        yOffset = distToUnit * (unitPosIndex );//% numUnitCol);
+        yOffset = FMath::Cos(degree + 90) * yOffset;
+            
+        unitLoc.Y += yOffset;
         
-        if(unitPosIndex >= numUnitCol)
-        {
-            unitLoc.X += unitPosIndex / numUnitCol ;
-        }
+//        xOffset = (int)(unitPosIndex / numUnitCol) * distToUnit;
+        xOffset = distToUnit * (unitPosIndex );
+        xOffset = FMath::Sign(degree + 90) * xOffset;
+        unitLoc.X -= xOffset;
+            
         break;
     case ESquadFormation::Diamond:
 
@@ -157,7 +167,10 @@ int32 ASquad::getSquadSide() const
 void ASquad::Tick(float DeltaSeconds)
 {
     if(m_leaderUnit != NULL)
+    {
         this->SetActorLocation(m_leaderUnit->GetActorLocation());
+//        this->SetActorRotation(m_leaderUnit->GetActorRotation());
+    }
 }
 
 
