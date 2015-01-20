@@ -31,20 +31,25 @@ private:
 	int m_minUnitNum = 1;
 	int m_maxUnitNum = 6;
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Memeber")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Member")
 	TArray<AUnit*> m_unitPtrs;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Memeber")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Member")
 	AUnit* m_leaderUnit;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Memeber")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, AdvancedDisplay, Category = "Squad Member")
 	UClass* m_potentialBP;
     
-    UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , AdvancedDisplay , Category ="Squad Memeber")
+    UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , AdvancedDisplay , Category ="Squad Member")
     FVector mTargetLoc;
-
-protected:
+    
+	UPROPERTY(EditDefaultsOnly , BlueprintReadOnly , AdvancedDisplay , Category = "Squad Member")
+    FVector2D mSquadVolume = FVector2D::ZeroVector;
+    
+private :
     ESquadFormation::Type mSquadFormation = ESquadFormation::Diamond;
+    int32 mSquadSide = 0;
+    
 public:
 // method
     UFUNCTION(BlueprintCallable , Category = "Squad Method")
@@ -68,14 +73,15 @@ public:
     UFUNCTION(BlueprintCallable , Category = "Squad Method")
     int32 getSquadSide() const;
     
+    UFUNCTION(BlueprintCallable , Category = "Squad Method")
+    FVector2D getSquadVolume() const;
+    
+    UFUNCTION(BlueprintCallable , Category = "Squad Method")
     virtual void Tick(float DeltaSeconds) override;
-    
-   
-    
+
 private:
 	AUnit* spawnUnit(UClass* targetUnitBP, int32 formationIndex = 0);
-    
-    int32 mSquadSide = 0;
-    
+
+    void calSquadVolume();
 };
 

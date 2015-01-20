@@ -53,28 +53,8 @@ void ASquad::createSquad(int32 numberOfUnit , FVector initLoc , ESquadFormation:
 	UE_LOG(LogTemp, Log, TEXT("number of unit in this squad is %d"),m_unitPtrs.Num());
     
     mSquadSide = FMath::RandRange(0, 1);
-}
-
-// spawn bp unit
-AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
-{
-	// spawn Bp unit here
-	AUnit* unit = NULL;
-
-	UE_LOG(LogTemp, Log, TEXT("unit is generated"));
-
-	unit = Utility::SpawnBP<AUnit>(this->GetWorld(), targetUnitBP, this->GetActorLocation() , FRotator(0, 0, 0), false);
     
-    if(unit != NULL)
-    {
-        FVector unitLoc = getUnitPos(unit , formationIndex);
-//        unit->AttachRootComponentToActor(this);
-        unit->SetActorLocation(unitLoc);
-        unit->SpawnDefaultController();
-        unit->initUnitData(mSquadSide, formationIndex , 100, 100);
-    }
-    
-	return unit;
+    calSquadVolume();
 }
 
 void ASquad::setSquadFormation(ESquadFormation::Type squadFormation)
@@ -117,14 +97,14 @@ FVector ASquad::getUnitPos(AUnit* unit, int32 unitPosIndex) const
 
         numUnitCol = m_maxUnitNum / 2;
             
-        yOffset = distToUnit * (unitPosIndex );//% numUnitCol);
-        yOffset = FMath::Cos(degree + 90) * yOffset;
+        yOffset = distToUnit * (unitPosIndex % numUnitCol);
+//        yOffset = FMath::Cos(degree + 90) * yOffset;
             
         unitLoc.Y += yOffset;
         
-//        xOffset = (int)(unitPosIndex / numUnitCol) * distToUnit;
-        xOffset = distToUnit * (unitPosIndex );
-        xOffset = FMath::Sign(degree + 90) * xOffset;
+        xOffset = (int)(unitPosIndex / numUnitCol) * distToUnit;
+//        xOffset = distToUnit * (unitPosIndex );
+//        xOffset = FMath::Sign(degree + 90) * xOffset;
         unitLoc.X -= xOffset;
             
         break;
@@ -163,13 +143,78 @@ int32 ASquad::getSquadSide() const
     return mSquadSide;
 }
 
+FVector2D ASquad::getSquadVolume() const
+{
+    return mSquadVolume;
+}
 
 void ASquad::Tick(float DeltaSeconds)
 {
+    Super::Tick(DeltaSeconds);
+    
     if(m_leaderUnit != NULL)
     {
         this->SetActorLocation(m_leaderUnit->GetActorLocation());
 //        this->SetActorRotation(m_leaderUnit->GetActorRotation());
+    }
+}
+
+// spawn bp unit
+AUnit* ASquad::spawnUnit(UClass* targetUnitBP, int32 formationIndex /* = 0 */)
+{
+    // spawn Bp unit here
+    AUnit* unit = NULL;
+    
+    UE_LOG(LogTemp, Log, TEXT("unit is generated"));
+    
+    unit = Utility::SpawnBP<AUnit>(this->GetWorld(), targetUnitBP, this->GetActorLocation() , FRotator(0, 0, 0), false);
+    
+    if(unit != NULL)
+    {
+        FVector unitLoc = getUnitPos(unit , formationIndex);
+        //        unit->AttachRootComponentToActor(this);
+        unit->SetActorLocation(unitLoc);
+        unit->SpawnDefaultController();
+        unit->initUnitData(mSquadSide, formationIndex , 100, 100);
+    }
+    
+    return unit;
+}
+
+void ASquad::calSquadVolume()
+{
+    if(m_unitPtrs.Num() > 0)
+    {
+        float unitCapsuleRadious = m_unitPtrs[0]->GetCapsuleComponent()->GetScaledCapsuleRadius();
+        float verVolume = 0;
+        float horVolume = 0;
+        
+        switch (mSquadFormation)
+        {
+            case ESquadFormation::TwoRow:
+                
+                horVolume = m_unitPtrs[0]->GetActorLocation().Y - m_unitPtrs[m_unitPtrs.Num() - 1]->GetActorLocation().Y;
+                
+                horVolume += (unitCapsuleRadious * 0.5f) * 2;
+                
+                verVolume = horVolume = m_unitPtrs[0]->GetActorLocation().X - m_unitPtrs[m_unitPtrs.Num() - 1]->GetActorLocation().X;
+                
+                verVolume += (unitCapsuleRadious * 0.5f) * 2;
+                
+                break;
+                
+            case ESquadFormation::ThreeRow:
+                
+                break;
+                
+            case ESquadFormation::Diamond:
+                
+                break;
+                
+            default:
+                break;
+        }
+        mSquadVolume = FVector2D(verVolume, horVolume);
     }
 }
 
